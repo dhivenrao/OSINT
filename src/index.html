@@ -146,7 +146,7 @@
 
       // Mini Map
       const map = new google.maps.Map(document.getElementById("map-container"), {
-        center: { lat: 0, lng: 0 },
+        center: { lat: 5, lng: 5 },
         zoom: 2,
         mapTypeId: 'roadmap',
         disableDefaultUI: true,  // turns off ALL UI by default
@@ -156,7 +156,7 @@
 
         // These ensure buttons like fullscreen and map type are hidden:
         fullscreenControl: false,
-        mapTypeControl: true,
+        mapTypeControl: false,
         rotateControl: false
       });
 
