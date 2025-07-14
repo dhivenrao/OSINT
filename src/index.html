@@ -44,6 +44,7 @@
       border-radius: 6px;
       box-shadow: 0 2px 8px rgba(0,0,0,0.3);
       transition: transform 0.3s ease;
+      transition: background-color 0.3s ease;
       width: 100%;
     }
 
@@ -137,6 +138,9 @@
 
         // Optional: re-enable just zoom control if you still want it:
         zoomControl: true,
+        zoomControlOptions: {
+          position: google.maps.ControlPosition.BOTTOM_CENTER,
+        },
 
         // These ensure buttons like fullscreen and map type are hidden:
         fullscreenControl: false,
