@@ -25,6 +25,7 @@
       z-index: 10;
       box-shadow: 0 0 10px rgba(0,0,0,0.6);
       border-radius: 12px;
+      transition: all 0.3s ease;
     }
 
     #submit-btn {
@@ -41,6 +42,7 @@
       border-radius: 6px;
       box-shadow: 0 2px 8px rgba(0,0,0,0.3);
       transition: background-color 0.3s ease;
+      transition: all 0.3s ease;
     }
 
     #flag {
@@ -85,6 +87,23 @@
       return R * c;
     }
 
+    function addHoverEffects() {
+      const mapContainer = document.getElementById("map-container");
+      const submitBtn = document.getElementById("submit-btn");
+
+    mapContainer.addEventListener("mouseenter", () => {
+      mapContainer.style.width = "400px";
+      mapContainer.style.height = "280px";
+      submitBtn.style.transform = "scale(1.2)";
+    });
+
+    mapContainer.addEventListener("mouseleave", () => {
+      mapContainer.style.width = "300px";
+      mapContainer.style.height = "200px";
+      submitBtn.style.transform = "scale(1)";
+    });
+  }
+
     function initMap() {
       // Street View
       new google.maps.StreetViewPanorama(
@@ -104,6 +123,8 @@
           motionTrackingControl: false
         }
       );
+
+      addHoverEffects();
 
       // Mini Map
       const map = new google.maps.Map(document.getElementById("map-container"), {
