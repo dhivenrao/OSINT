@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Fish or Not to fish..</title>
+  <title>Fish or Not to Fish..</title>
   <style>
     html, body {
       height: 100%;
@@ -17,17 +17,18 @@
     #map-container {
       position: absolute;
       bottom: 10px;
-      left: 10px;
+      right: 10px;
       width: 300px;
       height: 200px;
       border: 2px solid black;
       z-index: 10;
+      box-shadow: 0 0 10px rgba(0,0,0,0.6);
     }
 
     #submit-btn {
       position: absolute;
       bottom: 220px;
-      left: 10px;
+      right: 10px;
       padding: 10px 20px;
       z-index: 10;
       font-size: 16px;
@@ -36,6 +37,7 @@
       border: none;
       cursor: pointer;
       border-radius: 6px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.3);
     }
 
     #flag {
@@ -43,11 +45,15 @@
       top: 10px;
       left: 10px;
       z-index: 10;
-      background: rgba(0, 0, 0, 0.8);
+      background: rgba(0, 0, 0, 0.85);
       color: lime;
       font-size: 18px;
-      padding: 10px;
+      padding: 15px 20px;
+      border: 2px solid lime;
+      border-radius: 8px;
       display: none;
+      max-width: 300px;
+      white-space: pre-wrap;
     }
   </style>
 </head>
@@ -77,7 +83,7 @@
     }
 
     function initMap() {
-      // Street View (static, look only)
+      // Street View
       new google.maps.StreetViewPanorama(
         document.getElementById("street-view"),
         {
@@ -96,11 +102,12 @@
         }
       );
 
-      // Mini map for guessing
+      // Mini map
       const map = new google.maps.Map(document.getElementById("map-container"), {
         center: { lat: 0, lng: 0 },
         zoom: 2,
-        disableDefaultUI: false
+        disableDefaultUI: false,
+        mapTypeId: 'hybrid' // 'roadmap' | 'satellite' | 'hybrid' | 'terrain'
       });
 
       map.addListener("click", (e) => {
@@ -115,8 +122,11 @@
       });
 
       document.getElementById("submit-btn").addEventListener("click", () => {
+        const flagBox = document.getElementById("flag");
+
         if (!userGuess) {
-          alert("Please click on the map to make a guess.");
+          flagBox.style.display = "block";
+          flagBox.innerText = "❌ Please click on the map to make a guess.";
           return;
         }
 
@@ -128,9 +138,11 @@
         );
 
         if (distance <= 100) {
-          document.getElementById("flag").style.display = "block";
+          flagBox.style.display = "block";
+          flagBox.innerText = "🎉 Flag: CYNX{y0u_f0uNd_m3?}";
         } else {
-          alert("Too far! Try again.");
+          flagBox.style.display = "block";
+          flagBox.innerText = "❌ Not there!";
         }
       });
     }
