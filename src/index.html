@@ -28,7 +28,7 @@
 
     #submit-btn {
       position: absolute;
-      bottom: 250px;
+      bottom: 240px;
       right: 10px;
       padding: 10px 20px;
       z-index: 10;
@@ -129,6 +129,8 @@
           map: map,
           title: "Your Guess"
         });
+
+        document.getElementById("submit-btn").style.backgroundColor = "green";
       });
 
       document.getElementById("submit-btn").addEventListener("click", () => {
