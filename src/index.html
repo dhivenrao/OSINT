@@ -72,7 +72,7 @@
 
     function haversineDistance(lat1, lon1, lat2, lon2) {
       function toRad(x) { return x * Math.PI / 180; }
-      const R = 6371; // km
+      const R = 6371;
       const dLat = toRad(lat2 - lat1);
       const dLon = toRad(lon2 - lon1);
       const a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
@@ -102,12 +102,12 @@
         }
       );
 
-      // Mini map
+      // Mini Map
       const map = new google.maps.Map(document.getElementById("map-container"), {
-        center: { lat: 0, lng: 0 },
-        zoom: 2,
+        center: { lat: correctLat, lng: correctLng },
+        zoom: 15,
         disableDefaultUI: false,
-        mapTypeId: 'hybrid' // 'roadmap' | 'satellite' | 'hybrid' | 'terrain'
+        mapTypeId: 'hybrid'
       });
 
       map.addListener("click", (e) => {
@@ -126,7 +126,7 @@
 
         if (!userGuess) {
           flagBox.style.display = "block";
-          flagBox.innerText = "❌ Please click on the map to make a guess.";
+          flagBox.innerHTML = "❌ <strong>Please click on the map to make a guess.</strong>";
           return;
         }
 
@@ -137,12 +137,12 @@
           userGuess.lng
         );
 
-        if (distance <= 100) {
+        if (distance <= 0.2) { // within 200 meters is considered close enough
           flagBox.style.display = "block";
-          flagBox.innerText = "🎉 Flag: CYNX{y0u_f0uNd_m3?}";
+          flagBox.innerHTML = "🎉 <strong>Flag: CYNX{y0u_f0uNd_m3?}</strong>";
         } else {
           flagBox.style.display = "block";
-          flagBox.innerText = "❌ Not there!";
+          flagBox.innerHTML = "❌ <strong>Not there! Try closer.</strong>";
         }
       });
     }
