@@ -1,17 +1,49 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html>
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="styles.css">
-  <title>Vanilla JavaScript App</title>
+  <title>Fish or Not to Fish..</title>
+  <style>
+    html, body {
+      height: 100%;
+      margin: 0;
+    }
+    #street-view {
+      height: 100%;
+      width: 100%;
+    }
+  </style>
 </head>
-
 <body>
-  <main>
-    <h1>Vanilla JavaScript App</h1>
-  </main>
-</body>
+  <div id="street-view"></div>
 
+  <script>
+    function initMap() {
+      const panorama = new google.maps.StreetViewPanorama(
+        document.getElementById("street-view"),
+        {
+          position: { lat: -3.6357922, lng: -64.9600883 }, // Change this to your target location
+          pov: { heading: 100, pitch: 0 },
+          zoom: 1,
+
+          // Disable movement controls
+          disableDefaultUI: true,
+          linksControl: false,
+          panControl: false,
+          addressControl: false,
+          showRoadLabels: false,
+          clickToGo: false,
+
+          // Allow zoom + rotate (look around)
+          zoomControl: true,
+          motionTracking: false,
+          motionTrackingControl: false
+        }
+      );
+    }
+  </script>
+
+  <script async
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAIuNGShKxosYXwCgcWfSF4pqP8AwxlYPw&callback=initMap">
+  </script>
+</body>
 </html>
