@@ -204,5 +204,22 @@
   <script async
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAIuNGShKxosYXwCgcWfSF4pqP8AwxlYPw&callback=initMap">
   </script>
+
+    <!-- 🔐 Disable right-click and inspect shortcuts -->
+  <script>
+    // Disable right-click
+    document.addEventListener('contextmenu', event => event.preventDefault());
+
+    // Block F12, Ctrl+Shift+I/J/C, and Ctrl+U
+    document.addEventListener('keydown', function (e) {
+      if (
+        e.key === "F12" ||
+        (e.ctrlKey && e.shiftKey && (e.key === "I" || e.key === "J" || e.key === "C")) ||
+        (e.ctrlKey && e.key === "U")
+      ) {
+        e.preventDefault();
+      }
+    });
+  </script>
 </body>
 </html>
