@@ -32,14 +32,13 @@
       box-shadow: 0 0 10px rgba(0,0,0,0.6);
       border-radius: 12px;
       overflow: hidden;
-      background-color: white;
     }
 
     #submit-btn {
       position: absolute;
-      bottom: 100%; /* This moves it above the map */
+      bottom: calc(100% + 8px); /* This moves it above the map */
+      margin-bottom: 0; /* Gap between button and map */
       left: 0;
-      margin-bottom: 10px; /* Gap between button and map */
       padding: 10px 20px;
       font-size: 16px;
       background-color: rgba(0, 0, 0, 0.7);
