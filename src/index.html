@@ -89,7 +89,7 @@
         document.getElementById("street-view"),
         {
           position: { lat: correctLat, lng: correctLng },
-          pov: { heading: 209.12, pitch: 85.33 },
+          pov: { heading: 0, pitch: 0 },
           zoom: 1,
           disableDefaultUI: true,
           linksControl: false,
@@ -106,7 +106,7 @@
       // Mini Map
       const map = new google.maps.Map(document.getElementById("map-container"), {
         center: { lat: 0, lng: 0 },
-        zoom: 2,
+        zoom: 1,
         mapTypeId: 'roadmap',
         disableDefaultUI: true,  // turns off ALL UI by default
 
