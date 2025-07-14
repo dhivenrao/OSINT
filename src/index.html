@@ -122,6 +122,9 @@
           showRoadLabels: false,
           clickToGo: false,
           zoomControl: true,
+          zoomControlOptions: {
+            position: google.maps.ControlPosition.LEFT_TOP
+          },
           motionTracking: false,
           motionTrackingControl: false
         }
@@ -138,9 +141,6 @@
 
         // Optional: re-enable just zoom control if you still want it:
         zoomControl: true,
-        zoomControlOptions: {
-          position: google.maps.ControlPosition.BOTTOM_CENTER,
-        },
 
         // These ensure buttons like fullscreen and map type are hidden:
         fullscreenControl: false,
