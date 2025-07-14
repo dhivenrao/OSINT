@@ -1,44 +1,138 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Fish or Not to Fish..</title>
+  <title>Fish or Not to fish..</title>
   <style>
     html, body {
       height: 100%;
       margin: 0;
+      font-family: sans-serif;
     }
+
     #street-view {
       height: 100%;
       width: 100%;
     }
+
+    #map-container {
+      position: absolute;
+      bottom: 10px;
+      left: 10px;
+      width: 300px;
+      height: 200px;
+      border: 2px solid black;
+      z-index: 10;
+    }
+
+    #submit-btn {
+      position: absolute;
+      bottom: 220px;
+      left: 10px;
+      padding: 10px 20px;
+      z-index: 10;
+      font-size: 16px;
+      background-color: #1d4ed8;
+      color: white;
+      border: none;
+      cursor: pointer;
+      border-radius: 6px;
+    }
+
+    #flag {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      z-index: 10;
+      background: rgba(0, 0, 0, 0.8);
+      color: lime;
+      font-size: 18px;
+      padding: 10px;
+      display: none;
+    }
   </style>
 </head>
 <body>
+
   <div id="street-view"></div>
+  <div id="map-container"></div>
+  <button id="submit-btn">Submit Guess</button>
+  <div id="flag">🎉 Flag: CYNX{y0u_f0uNd_m3?}</div>
 
   <script>
+    const correctLat = -3.6357922;
+    const correctLng = -64.9600883;
+    let userMarker = null;
+    let userGuess = null;
+
+    function haversineDistance(lat1, lon1, lat2, lon2) {
+      function toRad(x) { return x * Math.PI / 180; }
+      const R = 6371; // km
+      const dLat = toRad(lat2 - lat1);
+      const dLon = toRad(lon2 - lon1);
+      const a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+                Math.cos(toRad(lat1)) * Math.cos(toRad(lat2)) *
+                Math.sin(dLon / 2) * Math.sin(dLon / 2);
+      const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+      return R * c;
+    }
+
     function initMap() {
-      const panorama = new google.maps.StreetViewPanorama(
+      // Street View (static, look only)
+      new google.maps.StreetViewPanorama(
         document.getElementById("street-view"),
         {
-          position: { lat: -3.6357922, lng: -64.9600883 }, // Change this to your target location
-          pov: { heading: 100, pitch: 0 },
+          position: { lat: correctLat, lng: correctLng },
+          pov: { heading: 209.12, pitch: 85.33 },
           zoom: 1,
-
-          // Disable movement controls
           disableDefaultUI: true,
           linksControl: false,
-          panControl: false,
           addressControl: false,
+          panControl: false,
           showRoadLabels: false,
           clickToGo: false,
-
-          // Allow zoom + rotate (look around)
           zoomControl: true,
           motionTracking: false,
           motionTrackingControl: false
         }
       );
+
+      // Mini map for guessing
+      const map = new google.maps.Map(document.getElementById("map-container"), {
+        center: { lat: 0, lng: 0 },
+        zoom: 2,
+        disableDefaultUI: false
+      });
+
+      map.addListener("click", (e) => {
+        userGuess = { lat: e.latLng.lat(), lng: e.latLng.lng() };
+
+        if (userMarker) userMarker.setMap(null);
+        userMarker = new google.maps.Marker({
+          position: userGuess,
+          map: map,
+          title: "Your Guess"
+        });
+      });
+
+      document.getElementById("submit-btn").addEventListener("click", () => {
+        if (!userGuess) {
+          alert("Please click on the map to make a guess.");
+          return;
+        }
+
+        const distance = haversineDistance(
+          correctLat,
+          correctLng,
+          userGuess.lat,
+          userGuess.lng
+        );
+
+        if (distance <= 100) {
+          document.getElementById("flag").style.display = "block";
+        } else {
+          alert("Too far! Try again.");
+        }
+      });
     }
   </script>
 
