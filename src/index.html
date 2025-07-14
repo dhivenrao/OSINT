@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+  <meta charset="UTF-8">
   <title>Fish or Not to Fish..</title>
   <style>
     html, body {
@@ -106,9 +107,18 @@
       const map = new google.maps.Map(document.getElementById("map-container"), {
         center: { lat: correctLat, lng: correctLng },
         zoom: 15,
-        disableDefaultUI: false,
-        mapTypeId: 'roadmap'
+        mapTypeId: 'hybrid',
+        disableDefaultUI: true,  // turns off ALL UI by default
+
+        // Optional: re-enable just zoom control if you still want it:
+        zoomControl: true,
+
+        // These ensure buttons like fullscreen and map type are hidden:
+        fullscreenControl: false,
+        mapTypeControl: false,
+        rotateControl: false
       });
+
 
       map.addListener("click", (e) => {
         userGuess = { lat: e.latLng.lat(), lng: e.latLng.lng() };
